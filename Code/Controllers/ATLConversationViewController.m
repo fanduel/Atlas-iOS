@@ -740,14 +740,14 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 
 #pragma mark - Image Picking
 
-- (void)displayImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType;
+- (void)displayImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
     [self.messageInputToolbar.textInputView resignFirstResponder];
     BOOL pickerSourceTypeAvailable = [UIImagePickerController isSourceTypeAvailable:sourceType];
     if (pickerSourceTypeAvailable) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
+        picker.mediaTypes = @[(NSString *)kUTTypeImage];
         picker.sourceType = sourceType;
         picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
         [self.navigationController presentViewController:picker animated:YES completion:nil];
