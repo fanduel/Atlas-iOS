@@ -593,22 +593,22 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
     }
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"atl.conversation.toolbar.actionsheet.takephoto.key", @"Take Photo/Video")
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.takephoto.key", @"Take Photo/Video", nil)
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
                                                                 [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
                                                             }];
-    UIAlertAction *lastPhotoAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"atl.conversation.toolbar.actionsheet.lastphoto.key", @"Last Photo/Video")
+    UIAlertAction *lastPhotoAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.lastphoto.key", @"Last Photo/Video", nil)
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
                                                                 [self captureLastPhotoTaken];
                                                             }];
-    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"atl.conversation.toolbar.actionsheet.library.key", @"Photo/Video Library")
+    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.library.key", @"Photo/Video Library", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
                                                               [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
                                                           }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"atl.conversation.toolbar.actionsheet.cancel.key", @"Cancel")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.cancel.key", @"Cancel", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     [controller addAction:takePhotoAction];
