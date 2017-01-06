@@ -24,8 +24,8 @@
 #import "ATLMessagingUtilities.h"
 #import "ATLParticipant.h"
 
-CGFloat const ATLMessageCellHorizontalMargin = 16.0f;
-CGFloat const ATLAvatarImageLeadPadding = 12.0f;
+CGFloat const ATLMessageCellHorizontalMargin = 8.0f;
+CGFloat const ATLAvatarImageLeadPadding = 8.0f;
 CGFloat const ATLAvatarImageTailPadding = 4.0f;
 
 @interface ATLBaseCollectionViewCell ()
@@ -126,12 +126,13 @@ CGFloat const ATLAvatarImageTailPadding = 4.0f;
     }
     [self setNeedsUpdateConstraints];
     self.shouldDisplayAvatar = shouldDisplayAvatarItem;
+    self.avatarImageView.hidden = !self.shouldDisplayAvatar;
 }
 
 - (void)updateWithSender:(id<ATLParticipant>)sender
 {
     if (sender) {
-        self.avatarImageView.hidden = NO;
+        self.avatarImageView.hidden = !self.shouldDisplayAvatar;
         self.avatarImageView.avatarItem = sender;
     } else {
         self.avatarImageView.hidden = YES;
@@ -143,7 +144,7 @@ CGFloat const ATLAvatarImageTailPadding = 4.0f;
     _bubbleWithAvatarLeadConstraint = [NSLayoutConstraint new];
     _bubbleWithoutAvatarLeadConstraint = [NSLayoutConstraint new];
     
-    CGFloat maxBubbleWidth = ATLMaxCellWidth() + ATLMessageBubbleLabelHorizontalPadding * 2;
+    CGFloat maxBubbleWidth = ATLMaxCellWidth() + ATLMessageBubbleLabelTrailingPadding + ATLMessageBubbleLabelLeadingPadding;
     self.bubbleViewWidthConstraint = [NSLayoutConstraint constraintWithItem:self.bubbleView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:maxBubbleWidth];
     [self.contentView addConstraint:self.bubbleViewWidthConstraint];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.bubbleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];

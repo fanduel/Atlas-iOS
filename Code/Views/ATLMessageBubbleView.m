@@ -22,8 +22,9 @@
 #import "ATLMessagingUtilities.h"
 #import "ATLPlayView.h"
 
-CGFloat const ATLMessageBubbleLabelVerticalPadding = 8.0f;
-CGFloat const ATLMessageBubbleLabelHorizontalPadding = 13.0f;
+CGFloat const ATLMessageBubbleLabelVerticalPadding = 16.0f;
+CGFloat const ATLMessageBubbleLabelLeadingPadding = 16.0f;
+CGFloat const ATLMessageBubbleLabelTrailingPadding = 16.0f;
 CGFloat const ATLMessageBubbleLabelWidthMargin = 1.0f;
 
 CGFloat const ATLMessageBubbleMapWidth = 200.0f;
@@ -51,6 +52,7 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
 @property (nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic) NSURL *tappedURL;
 @property (nonatomic) NSLayoutConstraint *imageWidthConstraint;
+@property (nonatomic) NSLayoutConstraint *imageHeightConstraint;
 @property (nonatomic) MKMapSnapshotter *snapshotter;
 @property (nonatomic) ATLProgressView *progressView;
 @property (nonatomic) ATLPlayView *playView;
@@ -138,7 +140,7 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
 - (void)prepareForReuse
 {
     self.bubbleImageView.image = nil;
-    [self applyImageWidthConstraint:NO];
+    [self shrinkImageToZero];
     self.playView.hidden = YES;
     [self setBubbleViewContentType:ATLBubbleViewContentTypeText];
 }
@@ -146,31 +148,31 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
 - (void)updateWithAttributedText:(NSAttributedString *)text
 {
     self.bubbleViewLabel.attributedText = text;
-    [self applyImageWidthConstraint:NO];
+    [self shrinkImageToZero];
     [self setBubbleViewContentType:ATLBubbleViewContentTypeText];
 }
 
-- (void)updateWithImage:(UIImage *)image width:(CGFloat)width
+- (void)updateWithImage:(UIImage *)image size:(CGSize)size
 {
     self.bubbleImageView.image = image;
-    self.imageWidthConstraint.constant = width;
-    [self applyImageWidthConstraint:YES];
+    self.imageWidthConstraint.constant = size.width;
+    self.imageHeightConstraint.constant = size.height;
     [self setBubbleViewContentType:ATLBubbleViewContentTypeImage];
 }
 
-- (void)updateWithVideoThumbnail:(UIImage *)image width:(CGFloat)width
+- (void)updateWithVideoThumbnail:(UIImage *)image size:(CGSize)size
 {
     self.bubbleImageView.image = image;
-    self.imageWidthConstraint.constant = width;
+    self.imageWidthConstraint.constant = size.width;
+    self.imageHeightConstraint.constant = size.height;
     self.playView.hidden = NO;
-    [self applyImageWidthConstraint:YES];
     [self setBubbleViewContentType:ATLBubbleViewContentTypeVideo];
 }
 
 - (void)updateWithLocation:(CLLocationCoordinate2D)location
 {
     self.imageWidthConstraint.constant = ATLMessageBubbleMapWidth;
-    [self applyImageWidthConstraint:YES];
+    self.imageHeightConstraint.constant = ATLMessageBubbleMapHeight;
     [self setBubbleViewContentType:ATLBubbleViewContentTypeLocation];
     [self setNeedsUpdateConstraints];
 
@@ -255,17 +257,9 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
     [self setNeedsUpdateConstraints];
 }
 
-- (void)applyImageWidthConstraint:(BOOL)applyImageWidthConstraint
-{
-    if (applyImageWidthConstraint) {
-        if (![self.constraints containsObject:self.imageWidthConstraint]) {
-            [self addConstraint:self.imageWidthConstraint];
-        }
-    } else {
-        if ([self.constraints containsObject:self.imageWidthConstraint]) {
-            [self removeConstraint:self.imageWidthConstraint];
-        }
-    }
+- (void)shrinkImageToZero {
+    self.imageWidthConstraint.constant = 0;
+    self.imageHeightConstraint.constant = 0;
 }
 
 - (void)setMenuControllerActions:(NSArray *)menuControllerActions
@@ -468,8 +462,8 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
 - (void)configureBubbleViewLabelConstraints
 {
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:ATLMessageBubbleLabelVerticalPadding]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:ATLMessageBubbleLabelHorizontalPadding]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:-ATLMessageBubbleLabelHorizontalPadding]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:ATLMessageBubbleLabelLeadingPadding]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:-ATLMessageBubbleLabelTrailingPadding]];
     NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_bubbleViewLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationLessThanOrEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-ATLMessageBubbleLabelVerticalPadding];
     bottomConstraint.priority = 800;
     [self addConstraint:bottomConstraint];
@@ -477,11 +471,12 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
 
 - (void)configureBubbleImageViewConstraints
 {
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     _imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
+    _imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_bubbleImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
+    [self addConstraint:_imageWidthConstraint];
+    [self addConstraint:_imageHeightConstraint];
 }
 
 - (void)configureProgressViewConstraints

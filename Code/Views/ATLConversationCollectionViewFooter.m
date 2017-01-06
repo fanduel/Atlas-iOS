@@ -36,8 +36,7 @@
 
 NSString *const ATLConversationViewFooterIdentifier = @"ATLConversationViewFooterIdentifier";
 CGFloat const ATLConversationViewFooterTopPadding = 2;
-CGFloat const ATLConversationViewFooterEmptyHeight = 1;
-CGFloat const ATLConversationViewFooterUnClusteredPadding = 7;
+CGFloat const ATLConversationViewFooterEmptyHeight = 8;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -85,9 +84,6 @@ CGFloat const ATLConversationViewFooterUnClusteredPadding = 7;
 + (CGFloat)footerHeightWithRecipientStatus:(NSAttributedString *)recipientStatus clustered:(BOOL)clustered
 {
     CGFloat height = ATLConversationViewFooterEmptyHeight;
-    if (!clustered) {
-        height += ATLConversationViewFooterUnClusteredPadding;
-    }
     if (!recipientStatus.length) {
         return height;
     }

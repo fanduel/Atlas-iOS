@@ -32,11 +32,11 @@
 
 NSString *const ATLConversationViewHeaderIdentifier = @"ATLConversationViewHeaderIdentifier";
 
-CGFloat const ATLConversationViewHeaderParticipantLeftPadding = 60;
+CGFloat const ATLConversationViewHeaderParticipantLeftPadding = 16;
 CGFloat const ATLConversationViewHeaderHorizontalPadding = 10;
-CGFloat const ATLConversationViewHeaderTopPadding = 10;
+CGFloat const ATLConversationViewHeaderTopPadding = 16;
 CGFloat const ATLConversationViewHeaderDateBottomPadding = 8;
-CGFloat const ATLConversationViewHeaderParticipantNameBottomPadding = 3;
+CGFloat const ATLConversationViewHeaderParticipantNameBottomPadding = 4;
 CGFloat const ATLConversationViewHeaderEmptyHeight = 1;
 
 + (ATLConversationCollectionViewHeader *)sharedHeader

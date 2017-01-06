@@ -24,7 +24,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 extern CGFloat const ATLMessageBubbleLabelVerticalPadding;
-extern CGFloat const ATLMessageBubbleLabelHorizontalPadding;
+extern CGFloat const ATLMessageBubbleLabelLeadingPadding;
+extern CGFloat const ATLMessageBubbleLabelTrailingPadding;
 extern CGFloat const ATLMessageBubbleLabelWidthMargin;
 extern CGFloat const ATLMessageBubbleMapWidth;
 extern CGFloat const ATLMessageBubbleMapHeight;
@@ -56,12 +57,12 @@ extern NSString *const ATLUserDidTapPhoneNumberNotification;
 /**
  @abstract Tells the bubble view to display a given image.
  */
-- (void)updateWithImage:(UIImage *)image width:(CGFloat)width;
+- (void)updateWithImage:(UIImage *)image size:(CGSize)size;
 
 /**
  @abstract Tells the bubble view to display the thumbnail for a video.
  */
-- (void)updateWithVideoThumbnail:(UIImage *)image width:(CGFloat)width;
+- (void)updateWithVideoThumbnail:(UIImage *)image size:(CGSize)size;
 
 /**
  @abstract Tells the bubble view to display a map image for a given location.

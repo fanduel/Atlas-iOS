@@ -197,7 +197,7 @@ NSInteger const kATLSharedCellTag = 1000;
             if (weakSelf.message != previousMessage) {
                 return;
             }
-            [weakSelf.bubbleView updateWithImage:displayingImage width:size.width];
+            [weakSelf.bubbleView updateWithImage:displayingImage size:size];
         });
     });
 }
@@ -225,7 +225,7 @@ NSInteger const kATLSharedCellTag = 1000;
         CGSize fullSize = ATLImageSizeForJSONData(sizePart.data);
         size = ATLConstrainImageSizeToCellSize(fullSize);
     }
-    [self.bubbleView updateWithVideoThumbnail:displayingImage width:size.width];
+    [self.bubbleView updateWithVideoThumbnail:displayingImage size:size];
 }
 
 - (void)configureBubbleViewForGIFContent
@@ -285,13 +285,13 @@ NSInteger const kATLSharedCellTag = 1000;
                         NSLog(@"failed to request for a content download from the UI with error=%@", error);
                     }
                     [weakSelf.bubbleView updateProgressIndicatorWithProgress:0.0 visible:NO animated:NO];
-                    [weakSelf.bubbleView updateWithImage:displayingImage width:size.width];
+                    [weakSelf.bubbleView updateWithImage:displayingImage size:size];
                 } else if (fullResImagePart.transferStatus == LYRContentTransferDownloading) {
                     LYRProgress *progress = fullResImagePart.progress;
                     [progress setDelegate:weakSelf];
                     weakSelf.progress = progress;
                     [weakSelf.bubbleView updateProgressIndicatorWithProgress:progress.fractionCompleted visible:YES animated:NO];
-                    [weakSelf.bubbleView updateWithImage:displayingImage width:size.width];
+                    [weakSelf.bubbleView updateWithImage:displayingImage size:size];
                 } else {
                     displayingImage = ATLAnimatedImageWithAnimatedGIFData(fullResImagePart.data);
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -299,7 +299,7 @@ NSInteger const kATLSharedCellTag = 1000;
                             return;
                         }
                         [weakSelf.bubbleView updateProgressIndicatorWithProgress:1.0 visible:NO animated:YES];
-                        [weakSelf.bubbleView updateWithImage:displayingImage width:size.width];
+                        [weakSelf.bubbleView updateWithImage:displayingImage size:size];
                     });
                 }
             }
@@ -437,7 +437,7 @@ NSInteger const kATLSharedCellTag = 1000;
         font = cell.messageTextFont;
     }
     CGSize size = ATLTextPlainSize(text, font);
-    size.width += ATLMessageBubbleLabelHorizontalPadding * 2 + ATLMessageBubbleLabelWidthMargin;
+    size.width += ATLMessageBubbleLabelLeadingPadding + ATLMessageBubbleLabelTrailingPadding + ATLMessageBubbleLabelWidthMargin;
     size.height += ATLMessageBubbleLabelVerticalPadding * 2;
     if (![[self sharedHeightCache] objectForKey:message.identifier]) {
         [[self sharedHeightCache] setObject:[NSValue valueWithCGSize:size] forKey:message.identifier];
