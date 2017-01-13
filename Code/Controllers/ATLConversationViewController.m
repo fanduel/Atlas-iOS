@@ -598,11 +598,6 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
                                                             handler:^(UIAlertAction *action) {
                                                                 [self displayImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
                                                             }];
-    UIAlertAction *lastPhotoAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.lastphoto.key", @"Last Photo/Video", nil)
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction *action) {
-                                                                [self captureLastPhotoTaken];
-                                                            }];
     UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:ATLLocalizedString(@"atl.conversation.toolbar.actionsheet.library.key", @"Photo/Video Library", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
@@ -612,7 +607,6 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     [controller addAction:takePhotoAction];
-    [controller addAction:lastPhotoAction];
     [controller addAction:libraryAction];
     [controller addAction:cancelAction];
     
