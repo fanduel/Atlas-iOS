@@ -262,6 +262,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)sendMessage:(LYRMessage *)message;
 
+/**
+ @abstract Display an image picker, or otherwise handle photo and camera picking. Override to provide better feedback.
+ @param sourceType photoLibrary or camera
+ */
+- (void)displayImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType;
+
 ///---------------------------
 /// @name Configuring Behavior
 ///---------------------------
