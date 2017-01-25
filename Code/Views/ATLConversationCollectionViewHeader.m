@@ -32,7 +32,7 @@
 
 NSString *const ATLConversationViewHeaderIdentifier = @"ATLConversationViewHeaderIdentifier";
 
-CGFloat const ATLConversationViewHeaderParticipantLeftPadding = 16;
+CGFloat const ATLConversationViewHeaderParticipantLeftPadding = 20;
 CGFloat const ATLConversationViewHeaderHorizontalPadding = 10;
 CGFloat const ATLConversationViewHeaderTopPadding = 16;
 CGFloat const ATLConversationViewHeaderDateBottomPadding = 8;

@@ -22,9 +22,9 @@
 #import "ATLMessagingUtilities.h"
 #import "ATLPlayView.h"
 
-CGFloat const ATLMessageBubbleLabelVerticalPadding = 16.0f;
-CGFloat const ATLMessageBubbleLabelLeadingPadding = 16.0f;
-CGFloat const ATLMessageBubbleLabelTrailingPadding = 16.0f;
+CGFloat const ATLMessageBubbleLabelVerticalPadding = 12.0f;
+CGFloat const ATLMessageBubbleLabelLeadingPadding = 12.0f;
+CGFloat const ATLMessageBubbleLabelTrailingPadding = 12.0f;
 CGFloat const ATLMessageBubbleLabelWidthMargin = 1.0f;
 
 CGFloat const ATLMessageBubbleMapWidth = 200.0f;
