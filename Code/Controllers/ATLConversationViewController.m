@@ -294,7 +294,7 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
     // Configure avatar image display
     NSMutableSet *otherParticipantIDs = [[self.conversation.participants valueForKey:@"userID"] mutableCopy];
     if (self.layerClient.authenticatedUser) [otherParticipantIDs removeObject:self.layerClient.authenticatedUser.userID];
-    self.shouldDisplayAvatarItem = (otherParticipantIDs.count > 1) ? YES : self.shouldDisplayAvatarItemForOneOtherParticipant;
+    self.shouldDisplayAvatarItem = (otherParticipantIDs.count > 1) ? self.shouldDisplayAvatarItemEver : self.shouldDisplayAvatarItemForOneOtherParticipant;
     
     // Configure message bar button enablement
     BOOL shouldEnableButton = self.conversation ? YES : NO;

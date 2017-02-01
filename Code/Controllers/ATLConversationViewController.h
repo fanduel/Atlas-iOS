@@ -293,6 +293,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL shouldDisplayAvatarItemForOneOtherParticipant;
 
 /**
+ @abstract A Boolean value that determines whether or not an avatar is shown if there is more than one other participant in the conversation.
+ @default `NO`.
+ Should be set before `[super viewDidLoad]` is called.
+ */
+@property (nonatomic) BOOL shouldDisplayAvatarItemEver;
+
+/**
  @abstract A Boolean value that determines whether or not an avatar is shown next to the outgoing messages
  @default `NO`.
  */

@@ -115,6 +115,8 @@ CGFloat const ATLAvatarImageTailPadding = 4.0f;
 - (void)shouldDisplayAvatarItem:(BOOL)shouldDisplayAvatarItem
 {
     NSArray *constraints = [self.contentView constraints];
+    self.shouldDisplayAvatar = shouldDisplayAvatarItem;
+    self.avatarImageView.hidden = !self.shouldDisplayAvatar;
     if (shouldDisplayAvatarItem) {
         if ([constraints containsObject:self.bubbleWithAvatarLeadConstraint]) return;
         [self.contentView removeConstraint:self.bubbleWithoutAvatarLeadConstraint];
@@ -125,8 +127,6 @@ CGFloat const ATLAvatarImageTailPadding = 4.0f;
         [self.contentView addConstraint:self.bubbleWithoutAvatarLeadConstraint];
     }
     [self setNeedsUpdateConstraints];
-    self.shouldDisplayAvatar = shouldDisplayAvatarItem;
-    self.avatarImageView.hidden = !self.shouldDisplayAvatar;
 }
 
 - (void)updateWithSender:(id<ATLParticipant>)sender
