@@ -47,6 +47,8 @@ LYRConversation *LYRConversationDataSourceConversationFromPredicate(LYRPredicate
 @property (nonatomic, readwrite) LYRQueryController *queryController;
 @property (nonatomic, readwrite) BOOL expandingPaginationWindow;
 @property (nonatomic, readwrite) LYRConversation *conversation;
+@property (nonatomic) NSInteger messageCountBeforeSync;
+@property (nonatomic) BOOL shouldSynchronizeRemoteMessages;
 
 @end
 
@@ -85,8 +87,8 @@ BOOL shouldSynchronizeRemoteMessages;
         BOOL success = [_queryController execute:&error];
         if (!success) NSLog(@"LayerKit failed to execute query with error: %@", error);
         
-        messageCountBeforeSync = _queryController.count;
-        shouldSynchronizeRemoteMessages = NO;
+        _messageCountBeforeSync = _queryController.count;
+        _shouldSynchronizeRemoteMessages = YES;
     }
     return self;
 }
@@ -121,20 +123,22 @@ BOOL shouldSynchronizeRemoteMessages;
 
 - (void)requestToSynchronizeMoreMessages:(NSUInteger)numberOfMessagesToSynchronize
 {
+    if (!self.shouldSynchronizeRemoteMessages) {
+        return;
+    }
+    
+    self.shouldSynchronizeRemoteMessages = NO;
     NSError *error;
     __weak typeof(self) weakSelf = self;
     __block __weak id observer = [[NSNotificationCenter defaultCenter] addObserverForName:LYRConversationDidFinishSynchronizingNotification object:self.conversation queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         if (observer) {
             [[NSNotificationCenter defaultCenter] removeObserver:observer];
         }
-        if (self.queryController.count <= messageCountBeforeSync) {
-            shouldSynchronizeRemoteMessages = NO;
-        } else {
-            shouldSynchronizeRemoteMessages = YES;
-        }
+
+        weakSelf.shouldSynchronizeRemoteMessages = YES;
         [weakSelf finishExpandingPaginationWindow];
     }];
-    messageCountBeforeSync = self.queryController.count;
+    self.messageCountBeforeSync = self.queryController.count;
     BOOL success = [self.conversation synchronizeMoreMessages:numberOfMessagesToSynchronize error:&error];
     if (!success) {
         if (observer) {
