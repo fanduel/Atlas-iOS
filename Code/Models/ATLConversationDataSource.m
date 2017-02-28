@@ -56,8 +56,6 @@ LYRConversation *LYRConversationDataSourceConversationFromPredicate(LYRPredicate
 
 NSInteger const ATLNumberOfSectionsBeforeFirstMessageSection = 1;
 NSInteger const ATLQueryControllerPaginationWindow = 30;
-NSInteger messageCountBeforeSync;
-BOOL shouldSynchronizeRemoteMessages;
 
 + (instancetype)dataSourceWithLayerClient:(LYRClient *)layerClient query:(LYRQuery *)query
 {
@@ -117,7 +115,9 @@ BOOL shouldSynchronizeRemoteMessages;
 - (void)finishExpandingPaginationWindow
 {
     NSUInteger numberOfMessagesToDisplay = MIN(-self.queryController.paginationWindow + ATLQueryControllerPaginationWindow, self.queryController.totalNumberOfObjects);
-    self.queryController.paginationWindow = -numberOfMessagesToDisplay;
+    if (numberOfMessagesToDisplay != 0) {
+        self.queryController.paginationWindow = -numberOfMessagesToDisplay;
+    }
     self.expandingPaginationWindow = NO;
 }
 
@@ -165,7 +165,7 @@ BOOL shouldSynchronizeRemoteMessages;
         For example, they're marked as Deleted for that user.
         `shouldSynchronizeRemoteMessages` is determined within `requestToSynchronizeMoreMessages`
      */
-    if (!shouldSynchronizeRemoteMessages) {
+    if (!_shouldSynchronizeRemoteMessages) {
         return 0;
     }
     
