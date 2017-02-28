@@ -161,14 +161,6 @@ NSInteger const ATLQueryControllerPaginationWindow = 30;
 
 - (NSUInteger)messagesAvailableRemotely
 {
-    /*  Remote messages may exist in the conversation but are unavailable to the current user.
-        For example, they're marked as Deleted for that user.
-        `shouldSynchronizeRemoteMessages` is determined within `requestToSynchronizeMoreMessages`
-     */
-    if (!_shouldSynchronizeRemoteMessages) {
-        return 0;
-    }
-    
     return (NSUInteger)MAX((NSInteger)0, (NSInteger)self.conversation.totalNumberOfMessages - (NSInteger)ABS(self.queryController.count));
 }
 
