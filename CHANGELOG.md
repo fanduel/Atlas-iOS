@@ -1,9 +1,75 @@
 # Atlas Changelog
 
+## 1.1.3
+
+### Bug Fixes
+
+* Fixes an error when installing Atlas via Carthage.
+
+## 1.1.2
+
+### Bug Fixes
+
+* Fixes a crash in `ATLMediaInputStream` when sending an image from the camera roll on iOS 11. [IOS-3225]
+* Fixes an issue where the text input and accessory buttons in the `ATLMessageInputToolbar` would not respond to tap actions on iOS 11.
+
+## 1.1.1
+
+### Public API Changes
+
+* Added the `presenceStatusEnabled` property to the `ATLParticipantPresenting` protocol.
+* Added the `presenceStatusEnabled` property to the `ATLAddressBarViewController`.
+* Added the `shouldShowAvatarItem` and `presenceStatusEnabled` properties to the `ATLParticipantTableViewController`.
+
+### Enhancements
+
+* `ATLParticipantTableViewCell` will now show presence status based on the value of `presenceStatusEnabled` defined in the `ATLParticipantTableViewController`.
+* The address bar's search results will now show presence status based on the value of `presenceStatusEnabled` defined in `ATLAddressBarViewController`.
+
+### Bug Fixes
+
+* Fixes a bug where an empty gap would display instead of the date and time above a message.
+* Fixes a bug where re-creating a previously deleted conversation would cause the more-messages spinner to continously display without actually loading anything. [iOS-3013]
+* Fixes a bug where the queryController pagination window could be set to zero, causing a crash. [iOS-3074]
+
+## 1.1.0
+
+Introducing the presence feature, which allows you to display a user's presence status as a color-coded icon next to their avatar image. [APPS-2740]
+
+### Public API Changes
+
+* Added a new `ATLPresenceStatusView` object, which renders a color-coded circle to represent a user's presence status. Added this to the `ATLAvatarItem`.
+* `ATLAvatarImageView` was renamed to `ATLAvatarView`.
+* Added the `presenceStatusEnabled` property to `ATLAvatarView`, which sets whether the presence status is shown. Default is `YES`.
+* Added a read-only accessor `presenceStatus` to the `ATLAvatarItem`.
+
+## 1.0.33
+
+### Public API Changes
+
+* Added `shouldDisplayUsernameForOneOtherParticipant` as a configurable property to `ATLConversationViewController`.
+* `dateString` and `participantName` parameters marked as `nullable` within `ATLConversationCollectionViewHeader:headerHeightWithDateString:`.
+* Made the return value of `ATLConversationListViewController:avatarItemForConversation:` `nullable`.
+
+### Enhancements
+
+* Refactored queryController delegate methods to return early if the view is not visible. This helps harden against `NSInternalInconsistencyException` errors.
+* Refactored `ATLConversationListViewController` to track all changes from the queryController as they come in. Once the queryController finishes the changes, the tableView is updated. This helps harden against `NSInternalInconsistencyException` errors.
+* Changed all `@import LayerKit` to `#import <LayerKit/LayerKit.h>`
+* Refactored code to satisfy analyzer warnings.
+
+### Bug Fixes
+
+* `ATLConversationListViewController:configureCell:atIndexPath:` returns early if no conversation is found at `indexPath`.
+* Prevent `ATLAvatarImageView` from flickering when setting the same `remoteImageURL`'s image
+* Fixes a bug where the timestamp might incorrectly get overlaid across the message bubble.
+
 ## 1.0.32
 
 ### Bug Fixes
 
+* Fixed an issue in `ATLMessageInputToolbar` where creating a new line would incorrectly offset the text above until the next character was entered. This also fixed a crash that could happen if Return was pressed rapidly in succession. [APPS-2663]
+* Fixed a crash that could occur if the `tableFooterView` in the `ATLConversationListViewController` wasn't initialized. [APPS-2774]
 * Fixed an issue where pulling to load more messages in a conversations wouldn't work when it should
 
 ## 1.0.31
