@@ -116,7 +116,7 @@ CGFloat const ATLAvatarImageTailPadding = 4.0f;
 {
     NSArray *constraints = [self.contentView constraints];
     self.shouldDisplayAvatar = shouldDisplayAvatarItem;
-    self.avatarImageView.hidden = !self.shouldDisplayAvatar;
+    self.avatarView.hidden = !self.shouldDisplayAvatar;
     if (shouldDisplayAvatarItem) {
         if ([constraints containsObject:self.bubbleWithAvatarLeadConstraint]) return;
         [self.contentView removeConstraint:self.bubbleWithoutAvatarLeadConstraint];
