@@ -152,6 +152,14 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
     [self setBubbleViewContentType:ATLBubbleViewContentTypeText];
 }
 
+- (void)updateWithImage:(UIImage *)image width:(CGFloat)width {
+    [self updateWithImage:image size:CGSizeMake(width, width)];
+}
+
+- (void)updateWithVideoThumbnail:(UIImage *)image width:(CGFloat)width {
+    [self updateWithVideoThumbnail:image size:CGSizeMake(width, width)];
+}
+
 - (void)updateWithImage:(UIImage *)image size:(CGSize)size
 {
     self.bubbleImageView.image = image;
