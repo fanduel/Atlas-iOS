@@ -1,9 +1,9 @@
 //
-//  ATLUIDataSourceChange.h
-//  Atlas
+//  UIMutableUserNotificationAction+ATLHelpers.h
+//  Layer-UI-iOS
 //
-//  Created by Kevin Coleman on 9/20/14.
-//  Copyright (c) 2015 Layer. All rights reserved.
+//  Created by Łukasz Przytuła on 21.11.2017.
+//  Copyright (c) 2017 Layer. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,19 +18,10 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
-#import <LayerKit/LayerKit.h>
+#import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-@interface ATLDataSourceChange : NSObject
+@interface UIMutableUserNotificationAction (ATLHelpers)
 
-+ (instancetype)changeObjectWithType:(LYRQueryControllerChangeType)type newIndex:(NSUInteger)newIndex currentIndex:(NSUInteger)currentIndex;
-
-@property (nonatomic) LYRQueryControllerChangeType type;
-
-@property (nonatomic) NSInteger newIndex;
-
-@property (nonatomic) NSInteger currentIndex;
+- (void)atl_setTextInputBehavior;
 
 @end
-NS_ASSUME_NONNULL_END
