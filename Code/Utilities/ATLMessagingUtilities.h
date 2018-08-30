@@ -22,6 +22,7 @@
 #import <LayerKit/LayerKit.h>
 #import <MapKit/MapKit.h>
 #import <ImageIO/ImageIO.h>
+#import <UserNotifications/UserNotifications.h>
 #import "ATLMediaAttachment.h"
 #import "UIResponder+ATLFirstResponder.h"
 #import "ATLMessageComposeTextView.h"
@@ -55,7 +56,7 @@ extern NSString *const ATLUserNotificationDefaultActionsCategoryIdentifier;
 // @name Push Support
 //-------------------
 
-UIMutableUserNotificationCategory *ATLDefaultUserNotificationCategory(void);
+UNNotificationCategory *ATLDefaultUserNotificationCategory(void);
 
 //---------------------------------
 // @name Internationalization Macro

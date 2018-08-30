@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		150813781FD826AC0069802E /* UIView+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813731FD826AB0069802E /* UIView+ATLHelpers.m */; };
-		150813791FD826AC0069802E /* UIMutableUserNotificationAction+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */; };
 		1508137A1FD826AC0069802E /* UICollectionView+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */; };
 		3DA2FAC31F1E9DAE00E890FA /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7858B60C1CE54BBE007795AB /* block.png */; };
 		3DA2FAC41F1E9DAE00E890FA /* block@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7858B60D1CE54BBE007795AB /* block@2x.png */; };
@@ -245,9 +244,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		150813721FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIMutableUserNotificationAction+ATLHelpers.h"; sourceTree = "<group>"; };
 		150813731FD826AB0069802E /* UIView+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ATLHelpers.m"; sourceTree = "<group>"; };
-		150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIMutableUserNotificationAction+ATLHelpers.m"; sourceTree = "<group>"; };
 		150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ATLHelpers.m"; sourceTree = "<group>"; };
 		150813761FD826AB0069802E /* UIView+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ATLHelpers.h"; sourceTree = "<group>"; };
 		150813771FD826AC0069802E /* UICollectionView+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ATLHelpers.h"; sourceTree = "<group>"; };
@@ -562,8 +559,6 @@
 			children = (
 				150813771FD826AC0069802E /* UICollectionView+ATLHelpers.h */,
 				150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */,
-				150813721FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.h */,
-				150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */,
 				150813761FD826AB0069802E /* UIView+ATLHelpers.h */,
 				150813731FD826AB0069802E /* UIView+ATLHelpers.m */,
 				3DA2FAF61F1E9DF500E890FA /* ATLConstants.h */,
@@ -1518,7 +1513,6 @@
 				D02CDCDD1A9FFC930013CBE8 /* ATLTestUtilities.m in Sources */,
 				D0294DE81A93F39300702856 /* ATLMediaStreamTests.m in Sources */,
 				1508137A1FD826AC0069802E /* UICollectionView+ATLHelpers.m in Sources */,
-				150813791FD826AC0069802E /* UIMutableUserNotificationAction+ATLHelpers.m in Sources */,
 				150813781FD826AC0069802E /* UIView+ATLHelpers.m in Sources */,
 				D04517141A9F9A0C00E137D9 /* ATLMediaAttachmentTests.m in Sources */,
 			);
@@ -1681,7 +1675,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Carthage/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.layer.Atlas;
@@ -1728,7 +1722,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Carthage/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.layer.Atlas;

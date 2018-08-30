@@ -22,7 +22,6 @@
 #import "ATLErrors.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ATLMessageCollectionViewCell.h"
-#import "UIMutableUserNotificationAction+ATLHelpers.h"
 
 NSString *const ATLMIMETypeTextPlain = @"text/plain";
 NSString *const ATLMIMETypeTextHTML = @"text/HTML";
@@ -51,18 +50,19 @@ NSString *const ATLUserNotificationDefaultActionsCategoryIdentifier = @"layer://
 
 #pragma mark - Push Support
 
-UIMutableUserNotificationCategory *ATLDefaultUserNotificationCategory()
+UNNotificationCategory *ATLDefaultUserNotificationCategory()
 {
-    UIMutableUserNotificationAction *replyAction = [UIMutableUserNotificationAction new];
-    replyAction.identifier = ATLUserNotificationInlineReplyActionIdentifier;
-    replyAction.title = @"Reply";
-    replyAction.activationMode = UIUserNotificationActivationModeBackground;
-    replyAction.authenticationRequired = NO;
-    [replyAction atl_setTextInputBehavior];
-    
-    UIMutableUserNotificationCategory *category = [UIMutableUserNotificationCategory new];
-    category.identifier = ATLUserNotificationDefaultActionsCategoryIdentifier;
-    [category setActions:@[ replyAction ] forContext:UIUserNotificationActionContextDefault];
+    UNNotificationAction *replyAction =
+    [UNTextInputNotificationAction actionWithIdentifier:ATLUserNotificationInlineReplyActionIdentifier
+                                                  title:@"Reply"
+                                                options:UNNotificationActionOptionNone
+                                   textInputButtonTitle:@"Reply"
+                                   textInputPlaceholder:@""];
+    UNNotificationCategory *category =
+    [UNNotificationCategory categoryWithIdentifier:ATLUserNotificationDefaultActionsCategoryIdentifier
+                                           actions:@[replyAction]
+                                 intentIdentifiers:@[]
+                                           options:UNNotificationCategoryOptionNone];
     
     return category;
 }
