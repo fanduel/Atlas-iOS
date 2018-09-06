@@ -19,9 +19,10 @@
 //
 
 #import <Foundation/Foundation.h>
-@import LayerKit;
+#import <LayerKit/LayerKit.h>
 #import <MapKit/MapKit.h>
 #import <ImageIO/ImageIO.h>
+#import <UserNotifications/UserNotifications.h>
 #import "ATLMediaAttachment.h"
 #import "UIResponder+ATLFirstResponder.h"
 #import "ATLMessageComposeTextView.h"
@@ -55,7 +56,7 @@ extern NSString *const ATLUserNotificationDefaultActionsCategoryIdentifier;
 // @name Push Support
 //-------------------
 
-UIMutableUserNotificationCategory *ATLDefaultUserNotificationCategory();
+UNNotificationCategory *ATLDefaultUserNotificationCategory(void);
 
 //---------------------------------
 // @name Internationalization Macro
@@ -67,9 +68,9 @@ UIMutableUserNotificationCategory *ATLDefaultUserNotificationCategory();
 // @name Max Cell Dimensions
 //--------------------------
 
-CGFloat ATLMaxCellWidth();
+CGFloat ATLMaxCellWidth(void);
 
-CGFloat ATLMaxCellHeight();
+CGFloat ATLMaxCellHeight(void);
 
 //----------------------
 // @name Image Utilities

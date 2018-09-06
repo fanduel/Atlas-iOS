@@ -17,7 +17,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-
+ 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "ATLProgressView.h"
@@ -53,6 +53,9 @@ extern NSString *const ATLUserDidTapPhoneNumberNotification;
  @abstract Tells the bubble view to display a given string.
  */
 - (void)updateWithAttributedText:(NSAttributedString *)text;
+
+- (void)updateWithImage:(UIImage *)image width:(CGFloat)width;
+- (void)updateWithVideoThumbnail:(UIImage *)image width:(CGFloat)width;
 
 /**
  @abstract Tells the bubble view to display a given image.
