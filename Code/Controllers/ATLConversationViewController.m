@@ -261,6 +261,7 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
     }
     self.conversationDataSource.queryController.delegate = self;
     self.queryController = self.conversationDataSource.queryController;
+    [self.objectChanges removeAllObjects];
     [self.conversationDataSource updateMessages];
     [self.collectionView reloadData];
 }
@@ -969,7 +970,6 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
 - (void)reloadCollectionViewAdjustingForContentHeightChange
 {
     CGFloat priorContentHeight = self.collectionView.contentSize.height;
-    [self.conversationDataSource updateMessages];
     [self.collectionView reloadData];
     CGFloat contentHeightDifference = self.collectionView.collectionViewLayout.collectionViewContentSize.height - priorContentHeight;
     CGFloat adjustment = contentHeightDifference;
@@ -1238,7 +1238,8 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
 {
     NSArray *objectChanges = [self.objectChanges copy];
     [self.objectChanges removeAllObjects];
-    
+    [self.conversationDataSource updateMessages];
+
     if (self.collectionView.window == nil) {
         [self.collectionView reloadData];
         [self.collectionView layoutIfNeeded];
@@ -1265,7 +1266,6 @@ static NSString *const ATLDefaultPushAlertText = @"sent you a message.";
     if (self.collectionView) {
         dispatch_suspend(self.animationQueue);
         [self.collectionView performBatchUpdates:^{
-            [self.conversationDataSource updateMessages];
             for (ATLDataSourceChange *change in objectChanges) {
                 switch (change.type) {
                     case LYRQueryControllerChangeTypeInsert:

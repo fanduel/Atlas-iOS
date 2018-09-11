@@ -238,6 +238,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     }
     [self setNeedsLayout];
     [self configureRightAccessoryButtonState];
+    self.textInputView.scrollEnabled = YES;
 }
 
 - (NSArray *)mediaAttachments
